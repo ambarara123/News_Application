@@ -1,8 +1,11 @@
 package com.example.testapp.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import com.example.testapp.NewsApplication
 import com.example.testapp.R
@@ -10,12 +13,14 @@ import com.example.testapp.R
 import com.example.testapp.databinding.ActivityMainBinding
 import com.example.testapp.ui.books.BooksFragment
 import com.example.testapp.ui.base.BaseActivity
+import com.example.testapp.ui.search.SearchActivity
+import com.example.testapp.ui.search.SearchFragment
 import com.google.android.material.navigation.NavigationView
+import timber.log.Timber
 
 
-
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),NavigationView.OnNavigationItemSelectedListener {
-
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
+    NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var toggle: ActionBarDrawerToggle
 
@@ -28,21 +33,22 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),Navigati
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.container,NewsFragment(),"news_fragment")
+                .add(R.id.container, NewsFragment(), "news_fragment")
                 .commit()
         }
 
-        initDrawerLayout()
+        initViews()
 
     }
 
-    private fun initDrawerLayout(){
+    private fun initViews() {
+
         with(binding) {
             toggle = ActionBarDrawerToggle(
                 this@MainActivity,
-                drawerLayout,toolbar,
+                drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
             )
@@ -51,19 +57,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),Navigati
             supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_white)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             navView.setNavigationItemSelectedListener(this@MainActivity)
+
         }
     }
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         binding.drawerLayout.closeDrawer(GravityCompat.START)
-        if (p0.itemId == R.id.actionNews){
+        if (p0.itemId == R.id.actionNews) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.container,NewsFragment(),"news_fragment")
+                .add(R.id.container, NewsFragment(), "news_fragment")
                 .commit()
             return true
-        }else if (p0.itemId == R.id.actionBooks){
+        } else if (p0.itemId == R.id.actionBooks) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, BooksFragment(),"books_fragment")
+                .replace(R.id.container, BooksFragment(), "books_fragment")
                 .commit()
             return true
         }
@@ -71,10 +78,23 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),Navigati
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == R.id.searchMenu){
+            startActivity(Intent(this,SearchActivity::class.java))
+        }
+
         if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return false
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
 
 }

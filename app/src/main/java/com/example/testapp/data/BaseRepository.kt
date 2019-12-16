@@ -5,13 +5,12 @@ import io.reactivex.disposables.Disposable
 
 abstract class BaseRepository {
 
-    private var compositeDisposable: CompositeDisposable? = null
+    var compositeDisposable: CompositeDisposable? = CompositeDisposable()
 
     fun onCleared() {
-
         if (compositeDisposable != null) {
-            compositeDisposable!!.dispose()
-            compositeDisposable!!.clear()
+            compositeDisposable?.dispose()
+            compositeDisposable?.clear()
             compositeDisposable = null
         }
     }
@@ -20,6 +19,6 @@ abstract class BaseRepository {
         if (compositeDisposable == null) {
             compositeDisposable = CompositeDisposable()
         }
-        compositeDisposable!!.add(disposable)
+        compositeDisposable?.add(disposable)
     }
 }

@@ -76,5 +76,8 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:1.0.0'
 
+    //paging
+    implementation "androidx.paging:paging-runtime:2.1.0"
+
 
 }

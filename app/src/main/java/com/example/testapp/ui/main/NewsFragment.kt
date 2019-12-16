@@ -78,5 +78,4 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
         }
     }
 
-
 }
