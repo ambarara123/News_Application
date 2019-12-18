@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testapp.databinding.ProgressbarItemBinding
 import com.example.testapp.databinding.SearchListBinding
 import com.example.testapp.model.search.Doc
 
 class SearchPagedAdapter : PagedListAdapter<Doc, SearchPagedAdapter.ViewHolder>(SearchDiffCallback) {
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(SearchListBinding.inflate(LayoutInflater.from(parent.context),parent,false))

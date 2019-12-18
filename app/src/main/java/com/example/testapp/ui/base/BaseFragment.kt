@@ -12,9 +12,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.testapp.BR
 import com.example.testapp.model.search.Doc
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : Fragment() {
+abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : DaggerFragment() {
     lateinit var viewModel: VM
 
     lateinit var binding: B

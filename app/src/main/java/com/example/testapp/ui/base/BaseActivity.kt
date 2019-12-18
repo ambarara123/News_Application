@@ -8,9 +8,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.testapp.BR
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : AppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppCompatActivity() {
 
     lateinit var viewModel: VM
     lateinit var binding: B

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import com.example.testapp.NewsApplication
 import com.example.testapp.R
@@ -14,9 +13,7 @@ import com.example.testapp.databinding.ActivityMainBinding
 import com.example.testapp.ui.books.BooksFragment
 import com.example.testapp.ui.base.BaseActivity
 import com.example.testapp.ui.search.SearchActivity
-import com.example.testapp.ui.search.SearchFragment
 import com.google.android.material.navigation.NavigationView
-import timber.log.Timber
 
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
@@ -29,7 +26,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as NewsApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
 
@@ -52,6 +48,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
             )
+
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
             supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_white)
@@ -94,7 +91,5 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         menuInflater.inflate(R.menu.search_menu,menu)
         return super.onCreateOptionsMenu(menu)
     }
-
-
 
 }

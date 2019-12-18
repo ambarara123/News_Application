@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.testapp.NewsApplication
 
@@ -25,18 +26,13 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_news
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (context?.applicationContext as NewsApplication).appComponent.inject(this)
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Inflate the layout for this fragment
         initMainRecycler()
         addObservers()
         addListeners()
-        viewModel.getData(isConnected())
+        viewModel.getDataCoroutine(isConnected())
 
     }
 
@@ -50,12 +46,12 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
 
     private fun addListeners() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getData(isConnected())
+            viewModel.getDataCoroutine(isConnected())
         }
     }
 
     private fun addObservers() {
-        viewModel.storiesLiveData.observe(activity!!, Observer {
+        viewModel.storiesLiveData.observe(viewLifecycleOwner, Observer {
             stopRefreshing()
             updateRecyclerViewAdapter(it)
         })
@@ -77,5 +73,4 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }
-
 }

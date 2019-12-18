@@ -20,12 +20,12 @@ class SearchDataSource(
         callback: LoadInitialCallback<Doc>
     ) {
         val key = params.requestedInitialKey ?: 1
+
         compositeDisposable.add(
             apiService.getSearchedArticle(API_KEY, searchQuery, key)
                 .subscribe {
                     callback.onResult(it.response.docs)
                 }
-
         )
     }
 

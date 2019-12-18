@@ -18,11 +18,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val application: Application) {
+class AppModule {
 
     @Singleton
     @Provides
-    fun provideContext(): Context {
+    fun provideContext(application: NewsApplication): Context {
         return application
     }
 
@@ -74,6 +74,5 @@ class AppModule(private val application: Application) {
     fun provideDatabase(context: Context): StoryDatabase {
         return StoryDatabase.getInstance(context)!!
     }
-
 
 }

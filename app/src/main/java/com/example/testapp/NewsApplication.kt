@@ -4,16 +4,21 @@ import android.app.Application
 import com.example.testapp.di.AppComponent
 import com.example.testapp.di.AppModule
 import com.example.testapp.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
-class NewsApplication : Application() {
+class NewsApplication : DaggerApplication() {
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.factory().create(this)
+    }
 
-    val appComponent: AppComponent by lazy {
+    /*val appComponent: AppComponent by lazy {
         DaggerAppComponent
             .builder()
             .appModule(AppModule(this))
             .build()
-    }
+    }*/
 
     override fun onCreate() {
         super.onCreate()

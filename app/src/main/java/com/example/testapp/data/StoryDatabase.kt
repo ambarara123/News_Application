@@ -22,7 +22,7 @@ abstract class StoryDatabase : RoomDatabase() {
                     APPDATABASE = Room.databaseBuilder(
                         context.getApplicationContext(),
                         StoryDatabase::class.java, DB_NAME
-                    ).allowMainThreadQueries()
+                    )
                         .build()
                 }
             }

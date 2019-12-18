@@ -24,7 +24,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(),
     override fun getLayoutId(): Int = R.layout.activity_search
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as NewsApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         initViews()
         addObserver()

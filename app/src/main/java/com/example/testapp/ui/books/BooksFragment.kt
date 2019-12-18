@@ -32,11 +32,6 @@ class BooksFragment : BaseFragment<FragmentBooksBinding,BooksViewModel>() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (context?.applicationContext as NewsApplication).appComponent.inject(this)
-        super.onCreate(savedInstanceState)
-    }
-
     private fun initMainRecycler() {
         with(binding) {
             bookRecyclerView.layoutManager =

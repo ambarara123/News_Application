@@ -8,21 +8,18 @@ import com.example.testapp.model.RoomResult
 interface StoryDao {
 
     @Query("SELECT * FROM result")
-    fun getLiveStories(): LiveData<List<RoomResult>>
-
-    @Query("SELECT * FROM result")
-    fun getStories(): List<RoomResult>
+    suspend fun getStories(): List<RoomResult>
 
     @Update
-    fun updateStory(result: RoomResult)
+    suspend fun updateStory(result: RoomResult)
 
     @Insert
-    fun insertStory(result: List<RoomResult>)
+    suspend fun insertStory(result: List<RoomResult>)
 
     @Delete
-    fun deleteStory(result: RoomResult)
+    suspend fun deleteStory(result: RoomResult)
 
     @Query("DELETE FROM result")
-    fun deleteAllStories()
+    suspend fun deleteAllStories()
 
 }
