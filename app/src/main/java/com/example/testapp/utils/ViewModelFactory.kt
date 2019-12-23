@@ -21,7 +21,7 @@ class ViewModelFactory @Inject constructor(val creators : Map<Class<out ViewMode
         }
 
         if (creator == null){
-            throw IllegalArgumentException("unknown class $modelClass")
+            throw IllegalArgumentException("unknown class ${modelClass.simpleName}")
         }
 
         try {
@@ -31,5 +31,4 @@ class ViewModelFactory @Inject constructor(val creators : Map<Class<out ViewMode
             throw RuntimeException(e)
         }
     }
-
 }

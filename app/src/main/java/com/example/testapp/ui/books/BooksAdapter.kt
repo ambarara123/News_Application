@@ -31,11 +31,10 @@ class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
         holder.bind()
     }
 
-   fun updateDatSet(books : List<BookRoom>){
+   fun updateDataSet(books : List<BookRoom>){
        bookList = books
        notifyDataSetChanged()
    }
-
 
     inner class ViewHolder(private val binding: BooksListBinding) :
         RecyclerView.ViewHolder(binding.root) {

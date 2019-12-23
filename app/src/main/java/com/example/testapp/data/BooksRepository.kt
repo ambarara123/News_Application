@@ -36,16 +36,21 @@ class BooksRepository @Inject constructor(
     }
 
      suspend fun fetchDataFromNetwork(): Response {
+         Timber.d("Books fetched from network")
         return apiService.getBooksDataFromNetwork(API_KEY_BOOKS)
     }
 
 
+
      suspend fun fetchDataFromRoom(): List<BookRoom> {
+         Timber.d("Books fetched from room")
         return database.getBooksDao().getAllBooks()
+
     }
 
     private suspend fun saveDataLocally(books: List<BookRoom>) {
         database.getBooksDao().insertBooks(books)
+        Timber.d("Books Saved locally")
     }
 
     private suspend fun deleteAllBooks() {

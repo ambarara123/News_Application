@@ -30,7 +30,6 @@ class StoryDatabaseTest {
             insertFakeData()
     }
 
-
     @After
     fun tearDown() {
         database.close()
@@ -49,14 +48,13 @@ class StoryDatabaseTest {
             BookRoom("ajdbsjkd", "Fakename2", 101, "ISBN2", 2, "Fake Title2", "Fake Author2")
         arrayList.add(roomResult)
         arrayList.add(roomResult2)
-        var testSamples = arrayList
 
-        booksDao.insertBooks(testSamples)
+        booksDao.insertBooks(arrayList)
     }
 
     @Test
     fun getBookData() = runBlocking {
-        val title = booksDao.getAllBooks().get(0).title
+        val title = booksDao.getAllBooks()[0].title
         Assert.assertEquals("Fake Title", title)
 
     }

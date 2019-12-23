@@ -16,7 +16,7 @@ interface ApiService {
     suspend fun getBooksDataFromNetwork(@Query(KEY_QUERY) apiKey: String) : Response
 
     @GET(SEARCH_URL)
-    fun getSearchedArticle(@Query(KEY_QUERY) apiKey: String, @Query(QUERY) query : String, @Query(PAGE)page : Int) : Observable<SearchResponse>
+   suspend fun getSearchedArticle(@Query(KEY_QUERY) apiKey: String, @Query(QUERY) query : String, @Query(PAGE)page : Int) : SearchResponse
 
     @GET(STORY_URL)
     suspend fun getFromNetworkCoroutine(@Query(KEY_QUERY) apiKey : String) : Stories

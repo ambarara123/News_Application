@@ -64,9 +64,11 @@ class BooksViewModelTest {
     @Test
     fun getData() {
         runBlocking {
+
             `when`(booksRepository.fetchDataFromNetwork()).thenAnswer {
                             return@thenAnswer Maybe.just(ArgumentMatchers.any(Response::class.java))
                         }
+
             `when`(booksRepository.fetchDataFromNetwork()).thenAnswer {
                 return@thenAnswer Maybe.just(ArgumentMatchers.anyList<Response>())
             }

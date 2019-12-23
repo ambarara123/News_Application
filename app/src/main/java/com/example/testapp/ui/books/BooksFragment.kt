@@ -62,7 +62,7 @@ class BooksFragment : BaseFragment<FragmentBooksBinding,BooksViewModel>() {
         with(binding) {
             val adapter = bookRecyclerView.adapter
             if (adapter is BooksAdapter) {
-                adapter.updateDatSet(roomResults)
+                adapter.updateDataSet(roomResults)
             }
         }
     }
