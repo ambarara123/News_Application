@@ -7,7 +7,6 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.testapp.model.search.Doc
 import com.example.testapp.network.ApiService
-
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(private val apiService: ApiService) : BaseRepository() {
@@ -27,7 +26,7 @@ class SearchRepository @Inject constructor(private val apiService: ApiService) :
     private lateinit var sourceFactory: SearchDataSourceFactory
 
     var searchLiveData: LiveData<PagedList<Doc>> = Transformations.switchMap(searchQueryLiveData) {
-        sourceFactory = SearchDataSourceFactory(apiService, it ?: "", compositeDisposable!!)
+        sourceFactory = SearchDataSourceFactory(apiService, it ?: "")
         LivePagedListBuilder<Int, Doc>(sourceFactory, pagedListConfig).build()
     }
 

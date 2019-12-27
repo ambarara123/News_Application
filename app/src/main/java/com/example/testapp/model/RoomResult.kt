@@ -18,7 +18,7 @@ data class RoomResult(
     val title: String,
     val updated_date: String,
     val url: String
-){
+) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

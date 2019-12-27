@@ -10,31 +10,32 @@ import com.squareup.picasso.Picasso
 
 class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
 
-    private var bookList : List<BookRoom> = emptyList()
+    private var bookList: List<BookRoom> = emptyList()
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
-       return ViewHolder(
+        return ViewHolder(
             BooksListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ))
+            )
+        )
     }
 
     override fun getItemCount(): Int {
-       return bookList.size
+        return bookList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
     }
 
-   fun updateDataSet(books : List<BookRoom>){
-       bookList = books
-       notifyDataSetChanged()
-   }
+    fun updateDataSet(books: List<BookRoom>) {
+        bookList = books
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: BooksListBinding) :
         RecyclerView.ViewHolder(binding.root) {

@@ -1,8 +1,5 @@
 package com.example.testapp
 
-import android.app.Application
-import com.example.testapp.di.AppComponent
-import com.example.testapp.di.AppModule
 import com.example.testapp.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication

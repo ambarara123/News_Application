@@ -8,7 +8,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.testapp.NewsApplication
 import com.example.testapp.R
 import com.example.testapp.databinding.ActivitySearchBinding
 import com.example.testapp.model.search.Doc
@@ -81,7 +80,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(),
         val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
 
 
     private fun updateRecyclerViewAdapter(list: PagedList<Doc>) {

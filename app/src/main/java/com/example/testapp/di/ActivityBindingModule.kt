@@ -12,6 +12,6 @@ abstract class ActivityBindingModule {
     abstract fun bindMainActivity(): MainActivity
 
     @ContributesAndroidInjector
-    abstract fun bindSearchActivity() : SearchActivity
+    abstract fun bindSearchActivity(): SearchActivity
 
 }

@@ -2,7 +2,6 @@ package com.example.testapp.ui.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
@@ -28,7 +27,7 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppComp
     fun bindView(layoutRes: Int) {
         binding = DataBindingUtil.setContentView(this, layoutRes)
         viewModel = ViewModelProvider(this, viewModelFactory).get(getViewModelClass())
-        binding.setVariable(BR.viewModel,viewModel)
+        binding.setVariable(BR.viewModel, viewModel)
 
     }
 

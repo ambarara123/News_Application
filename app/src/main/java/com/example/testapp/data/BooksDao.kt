@@ -8,10 +8,10 @@ import com.example.testapp.model.books.BookRoom
 @Dao
 interface BooksDao {
     @Query("SELECT * FROM books")
-    suspend fun getAllBooks() : List<BookRoom>
+    suspend fun getAllBooks(): List<BookRoom>
 
     @Insert
-    suspend fun insertBooks(books : List<BookRoom>)
+    suspend fun insertBooks(books: List<BookRoom>)
 
     @Query("DELETE FROM books")
     suspend fun deleteAllBooks()

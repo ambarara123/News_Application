@@ -12,12 +12,12 @@ import javax.inject.Inject
 
 class BooksViewModel @Inject constructor(val booksRepository: BooksRepository) : BaseViewModel() {
 
-    val booksLiveData : LiveData<List<BookRoom>> =
-        Transformations.map(booksRepository.booksLiveData){
+    val booksLiveData: LiveData<List<BookRoom>> =
+        Transformations.map(booksRepository.booksLiveData) {
             it
         }
 
-    fun getData(isConnected: Boolean){
+    fun getData(isConnected: Boolean) {
         viewModelScope.launch {
             booksRepository.fetchData(isConnected)
         }

@@ -6,12 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
-import com.example.testapp.NewsApplication
 import com.example.testapp.R
-
 import com.example.testapp.databinding.ActivityMainBinding
-import com.example.testapp.ui.books.BooksFragment
 import com.example.testapp.ui.base.BaseActivity
+import com.example.testapp.ui.books.BooksFragment
 import com.example.testapp.ui.search.SearchActivity
 import com.google.android.material.navigation.NavigationView
 
@@ -76,8 +74,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (item.itemId == R.id.searchMenu){
-            startActivity(Intent(this,SearchActivity::class.java))
+        if (item.itemId == R.id.searchMenu) {
+            startActivity(Intent(this, SearchActivity::class.java))
         }
 
         if (toggle.onOptionsItemSelected(item)) {
@@ -88,7 +86,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.search_menu,menu)
+        menuInflater.inflate(R.menu.search_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

@@ -1,6 +1,5 @@
 package com.example.testapp.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.testapp.model.RoomResult
 
@@ -10,7 +9,7 @@ interface StoryDao {
     @Query("SELECT * FROM result")
     suspend fun getStories(): List<RoomResult>
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateStory(result: RoomResult)
 
     @Insert

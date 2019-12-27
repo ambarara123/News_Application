@@ -22,7 +22,7 @@ class StoryRepository @Inject constructor(
 
     val storiesLiveData = MutableLiveData<List<RoomResult>>()
 
-    fun fetchData(isConnected: Boolean) {
+    suspend fun fetchData(isConnected: Boolean) {
         if (isConnected) {
             addDisposable(
                 fetchDataFromNetwork()
@@ -30,8 +30,8 @@ class StoryRepository @Inject constructor(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ stories ->
                         val roomResults = stories.results.map { it.toRoomResult() }
-                       // deleteAllStories()
-                       // saveDataLocally(roomResults)
+                        // deleteAllStories()
+                        // saveDataLocally(roomResults)
                         storiesLiveData.value = roomResults
                     }, { error ->
                         Timber.e(error)
@@ -39,20 +39,20 @@ class StoryRepository @Inject constructor(
             )
         } else {
 
-           // storiesLiveData.value = fetchDataFromRoom()
+            storiesLiveData.value = fetchDataFromRoom()
         }
     }
 
     suspend fun fetchDataCoroutine(isConnected: Boolean) {
         withContext(Dispatchers.IO) {
-        if (isConnected) {
+            if (isConnected) {
                 val stories = fetchDataFromNetworkCoroutine().results.map { it.toRoomResult() }
                 deleteAllStories()
                 saveDataLocally(stories)
                 storiesLiveData.postValue(stories)
-            }else{
-            storiesLiveData.postValue(fetchDataFromRoom())
-        }
+            } else {
+                storiesLiveData.postValue(fetchDataFromRoom())
+            }
         }
     }
 

@@ -17,6 +17,6 @@ data class NetworkResult(
     val title: String,
     val updated_date: String,
     val url: String
-){
+) {
 
 }

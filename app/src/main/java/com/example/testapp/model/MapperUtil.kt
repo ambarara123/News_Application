@@ -21,6 +21,6 @@ fun NetworkResult.toRoomResult(): RoomResult {
     )
 }
 
-fun BookNetwork.toRoomResult(): BookRoom{
-    return BookRoom(book_image,description,price,publisher,rank,title,author)
+fun BookNetwork.toRoomResult(): BookRoom {
+    return BookRoom(book_image, description, price, publisher, rank, title, author)
 }

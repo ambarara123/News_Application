@@ -11,8 +11,8 @@ data class BookRoom(
     val publisher: String,
     val rank: Int,
     val title: String,
-    val author : String
-){
+    val author: String
+) {
     @PrimaryKey(autoGenerate = true)
     var id = 0
 }

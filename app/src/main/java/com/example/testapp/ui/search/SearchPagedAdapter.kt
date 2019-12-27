@@ -5,25 +5,32 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testapp.databinding.ProgressbarItemBinding
 import com.example.testapp.databinding.SearchListBinding
 import com.example.testapp.model.search.Doc
 
-class SearchPagedAdapter : PagedListAdapter<Doc, SearchPagedAdapter.ViewHolder>(SearchDiffCallback) {
+class SearchPagedAdapter :
+    PagedListAdapter<Doc, SearchPagedAdapter.ViewHolder>(SearchDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(SearchListBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return ViewHolder(
+            SearchListBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!)
     }
 
-    inner class ViewHolder(private val binding : SearchListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: SearchListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(doc : Doc){
+        fun bind(doc: Doc) {
 
-            with(binding){
+            with(binding) {
                 abstractDocs.text = doc.abstract
                 paragraph.text = doc.lead_paragraph
             }

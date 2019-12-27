@@ -2,15 +2,9 @@ package com.example.testapp.ui.main
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
-import androidx.lifecycle.LifecycleOwner
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.example.testapp.NewsApplication
-
 import com.example.testapp.R
 import com.example.testapp.databinding.FragmentNewsBinding
 import com.example.testapp.model.RoomResult

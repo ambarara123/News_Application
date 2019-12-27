@@ -1,15 +1,12 @@
 package com.example.testapp.ui.books
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.example.testapp.NewsApplication
-
 import com.example.testapp.R
 import com.example.testapp.databinding.FragmentBooksBinding
 import com.example.testapp.model.books.BookRoom
-
 import com.example.testapp.ui.base.BaseFragment
 import com.example.testapp.utils.isNetworkAvailable
 
@@ -17,7 +14,7 @@ import com.example.testapp.utils.isNetworkAvailable
 /**
  * A simple [Fragment] subclass.
  */
-class BooksFragment : BaseFragment<FragmentBooksBinding,BooksViewModel>() {
+class BooksFragment : BaseFragment<FragmentBooksBinding, BooksViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_books
 
@@ -51,7 +48,7 @@ class BooksFragment : BaseFragment<FragmentBooksBinding,BooksViewModel>() {
 
     private fun addObservers() {
         with(binding) {
-            viewModel!!.booksLiveData.observe(activity!!, Observer {
+            viewModel!!.booksLiveData.observe(lifecycleOwner!!, Observer {
                 stopRefreshing()
                 updateRecyclerViewAdapter(it)
             })
@@ -72,10 +69,10 @@ class BooksFragment : BaseFragment<FragmentBooksBinding,BooksViewModel>() {
     }
 
     private fun stopRefreshing() {
-        with(binding){
-           if (booksSwipeRefreshLayout.isRefreshing){
-               booksSwipeRefreshLayout.isRefreshing = false
-           }
+        with(binding) {
+            if (booksSwipeRefreshLayout.isRefreshing) {
+                booksSwipeRefreshLayout.isRefreshing = false
+            }
         }
     }
 

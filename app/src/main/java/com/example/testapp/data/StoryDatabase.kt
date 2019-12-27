@@ -2,14 +2,14 @@ package com.example.testapp.data
 
 import android.content.Context
 import androidx.room.Database
-import androidx.room.RoomDatabase
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.example.testapp.model.RoomResult
 import com.example.testapp.model.books.BookRoom
 import com.example.testapp.utils.DB_NAME
 
 
-@Database(entities = [RoomResult::class,BookRoom::class], version = 1, exportSchema = false)
+@Database(entities = [RoomResult::class, BookRoom::class], version = 1, exportSchema = false)
 abstract class StoryDatabase : RoomDatabase() {
 
     companion object {
@@ -32,6 +32,6 @@ abstract class StoryDatabase : RoomDatabase() {
 
     abstract fun getStoryDao(): StoryDao
 
-    abstract fun getBooksDao():BooksDao
+    abstract fun getBooksDao(): BooksDao
 
 }

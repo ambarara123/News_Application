@@ -1,17 +1,14 @@
 package com.example.testapp.di
 
-import android.app.Application
 import android.content.Context
 import com.example.testapp.NewsApplication
 import com.example.testapp.data.StoryDatabase
 import com.example.testapp.network.ApiService
 import com.example.testapp.utils.BASE_URL
-import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

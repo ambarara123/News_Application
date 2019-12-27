@@ -7,5 +7,5 @@ data class BookNetwork(
     val publisher: String,
     val rank: Int,
     val title: String,
-    val author : String
+    val author: String
 )
