@@ -2,14 +2,16 @@ package com.example.testapp.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.databinding.ListItemBinding
 import com.example.testapp.network.model.RoomResult
+import com.example.testapp.utils.NewsDiffUtil
 
 class MainRecyclerAdapter :
     RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
 
-    private var data: List<RoomResult> = emptyList()
+    private var newsList: List<RoomResult> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return MainViewHolder(
@@ -21,11 +23,13 @@ class MainRecyclerAdapter :
         )
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = newsList.size
 
-    fun updateDatSet(roomResults: List<RoomResult>) {
-        data = roomResults
-        notifyDataSetChanged()
+    fun updateDatSet(news: List<RoomResult>) {
+        val diffCallback = NewsDiffUtil(newsList, news)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        newsList = news
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
@@ -36,7 +40,7 @@ class MainRecyclerAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
-            val roomResult = data[adapterPosition]
+            val roomResult = newsList[adapterPosition]
             with(binding) {
                 sectionTitle.text = roomResult.title
                 sectionName.text = roomResult.section

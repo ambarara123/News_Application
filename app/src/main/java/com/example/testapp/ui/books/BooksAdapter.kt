@@ -2,9 +2,11 @@ package com.example.testapp.ui.books
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.databinding.BooksListBinding
 import com.example.testapp.network.model.books.BookRoom
+import com.example.testapp.utils.BooksDiffUtil
 import com.squareup.picasso.Picasso
 
 class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
@@ -30,9 +32,23 @@ class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
     }
 
     fun updateDataSet(books: List<BookRoom>) {
+        val diffCallback = BooksDiffUtil(this.bookList, books)
+        val diffResult = DiffUtil.calculateDiff((diffCallback))
         bookList = books
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
+
+    val diffUtilCallback = object : DiffUtil.ItemCallback<BookRoom>() {
+        override fun areItemsTheSame(oldItem: BookRoom, newItem: BookRoom): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: BookRoom, newItem: BookRoom): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+
 
     inner class ViewHolder(private val binding: BooksListBinding) :
         RecyclerView.ViewHolder(binding.root) {
