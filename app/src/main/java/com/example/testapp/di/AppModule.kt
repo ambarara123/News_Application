@@ -2,7 +2,7 @@ package com.example.testapp.di
 
 import android.content.Context
 import com.example.testapp.NewsApplication
-import com.example.testapp.data.StoryDatabase
+import com.example.testapp.database.StoryDatabase
 import com.example.testapp.network.ApiService
 import com.example.testapp.utils.BASE_URL
 import dagger.Module

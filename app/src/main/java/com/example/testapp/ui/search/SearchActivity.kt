@@ -10,9 +10,8 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testapp.R
 import com.example.testapp.databinding.ActivitySearchBinding
-import com.example.testapp.model.search.Doc
+import com.example.testapp.network.model.search.Doc
 import com.example.testapp.ui.base.BaseActivity
-import timber.log.Timber
 
 class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(),
     SearchView.OnQueryTextListener,
@@ -43,7 +42,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(),
     }
 
     private fun addObserver() {
-        viewModel.searchLivedata.observe(this, Observer {
+        viewModel.searchLiveData.observe(this, Observer {
             updateRecyclerViewAdapter(it)
         })
     }
@@ -55,7 +54,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(),
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        Timber.d(newText)
         return true
     }
 
@@ -65,28 +63,26 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(),
     }
 
     private fun initRecyclerView() {
-        with(binding) {
-            searchRecyclerView.layoutManager = LinearLayoutManager(this@SearchActivity)
-            searchRecyclerView.adapter = SearchPagedAdapter()
+        with(binding.searchRecyclerView) {
+            layoutManager = LinearLayoutManager(this@SearchActivity)
+            adapter = SearchPagedAdapter()
         }
     }
 
     private fun showKeyboard(view: View) {
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED)
+        val inputMethodManager =
+            view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
 
     private fun dismissKeyboard(view: View) {
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        val inputMethodManager =
+            view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
 
     private fun updateRecyclerViewAdapter(list: PagedList<Doc>) {
         val adapter = binding.searchRecyclerView.adapter
-        if (adapter is SearchPagedAdapter) {
-            adapter.submitList(list)
-        }
+        (adapter as? SearchPagedAdapter)?.submitList(list)
     }
-
 }

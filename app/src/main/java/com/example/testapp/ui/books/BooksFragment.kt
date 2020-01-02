@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testapp.R
 import com.example.testapp.databinding.FragmentBooksBinding
-import com.example.testapp.model.books.BookRoom
+import com.example.testapp.network.model.books.BookRoom
 import com.example.testapp.ui.base.BaseFragment
-import com.example.testapp.utils.isNetworkAvailable
 
 
 /**
@@ -22,56 +22,41 @@ class BooksFragment : BaseFragment<FragmentBooksBinding, BooksViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initMainRecycler()
-        addListeners()
-        addObservers()
-        viewModel.getData(isConnected())
-
+        viewModel.getData()
     }
 
-    private fun initMainRecycler() {
-        with(binding) {
-            bookRecyclerView.layoutManager =
-                androidx.recyclerview.widget.LinearLayoutManager(context)
-            bookRecyclerView.adapter = BooksAdapter()
+
+    override fun initRecycler() {
+        with(binding.bookRecyclerView) {
+            layoutManager =
+                LinearLayoutManager(context)
+            adapter = BooksAdapter()
 
         }
     }
 
-    private fun addListeners() {
-        with(binding) {
-            booksSwipeRefreshLayout.setOnRefreshListener {
-                viewModel?.getData(isConnected())
-            }
+    override fun addListeners() {
+        binding.booksSwipeRefreshLayout.setOnRefreshListener {
+            viewModel.getData()
         }
     }
 
-    private fun addObservers() {
-        with(binding) {
-            viewModel!!.booksLiveData.observe(lifecycleOwner!!, Observer {
-                stopRefreshing()
-                updateRecyclerViewAdapter(it)
-            })
-        }
+    override fun addObservers() {
+        viewModel.booksLiveData.observe(viewLifecycleOwner, Observer {
+            stopRefreshing()
+            updateRecyclerViewAdapter(it)
+        })
     }
 
     private fun updateRecyclerViewAdapter(roomResults: List<BookRoom>) {
-        with(binding) {
-            val adapter = bookRecyclerView.adapter
-            if (adapter is BooksAdapter) {
-                adapter.updateDataSet(roomResults)
-            }
-        }
-    }
-
-    private fun isConnected(): Boolean {
-        return isNetworkAvailable(context!!)
+        val adapter = binding.bookRecyclerView.adapter
+        (adapter as? BooksAdapter)?.updateDataSet(roomResults)
     }
 
     private fun stopRefreshing() {
-        with(binding) {
-            if (booksSwipeRefreshLayout.isRefreshing) {
-                booksSwipeRefreshLayout.isRefreshing = false
+        with(binding.booksSwipeRefreshLayout) {
+            if (isRefreshing) {
+                isRefreshing = false
             }
         }
     }

@@ -6,7 +6,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.databinding.SearchListBinding
-import com.example.testapp.model.search.Doc
+import com.example.testapp.network.model.search.Doc
 
 class SearchPagedAdapter :
     PagedListAdapter<Doc, SearchPagedAdapter.ViewHolder>(SearchDiffCallback) {

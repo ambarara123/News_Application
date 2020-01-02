@@ -14,8 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.search.SearchActivity"></activity>
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".ui.search.SearchActivity" />
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme">

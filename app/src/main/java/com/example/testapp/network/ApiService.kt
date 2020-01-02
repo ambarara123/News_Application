@@ -1,8 +1,8 @@
 package com.example.testapp.network
 
-import com.example.testapp.model.Stories
-import com.example.testapp.model.books.Response
-import com.example.testapp.model.search.SearchResponse
+import com.example.testapp.network.model.Stories
+import com.example.testapp.network.model.books.Response
+import com.example.testapp.network.model.search.SearchResponse
 import com.example.testapp.utils.*
 import io.reactivex.Observable
 import retrofit2.http.GET

@@ -10,19 +10,9 @@ class NewsApplication : DaggerApplication() {
         return DaggerAppComponent.factory().create(this)
     }
 
-    /*val appComponent: AppComponent by lazy {
-        DaggerAppComponent
-            .builder()
-            .appModule(AppModule(this))
-            .build()
-    }*/
-
     override fun onCreate() {
         super.onCreate()
-        initTimber()
-    }
-
-    private fun initTimber() {
         Timber.plant(Timber.DebugTree())
     }
+
 }

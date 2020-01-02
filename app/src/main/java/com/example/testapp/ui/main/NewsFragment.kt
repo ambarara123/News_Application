@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testapp.R
 import com.example.testapp.databinding.FragmentNewsBinding
-import com.example.testapp.model.RoomResult
+import com.example.testapp.network.model.RoomResult
 import com.example.testapp.ui.base.BaseFragment
-import com.example.testapp.utils.isNetworkAvailable
 
 /**
  * A simple [Fragment] subclass.
@@ -22,49 +22,43 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Inflate the layout for this fragment
-        initMainRecycler()
-        addObservers()
-        addListeners()
-        viewModel.getDataCoroutine(isConnected())
 
+        viewModel.getDataCoroutine()
     }
 
-    private fun initMainRecycler() {
-        with(binding) {
-            recyclerView.layoutManager =
-                androidx.recyclerview.widget.LinearLayoutManager(context)
-            recyclerView.adapter = MainRecyclerAdapter()
+    override fun initRecycler() {
+        with(binding.recyclerView) {
+            layoutManager =
+                LinearLayoutManager(context)
+            adapter = MainRecyclerAdapter()
         }
     }
 
-    private fun addListeners() {
+    override fun addListeners() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getDataCoroutine(isConnected())
+            viewModel.getDataCoroutine()
         }
     }
 
-    private fun addObservers() {
+    override fun addObservers() {
         viewModel.storiesLiveData.observe(viewLifecycleOwner, Observer {
             stopRefreshing()
             updateRecyclerViewAdapter(it)
+            stopRefreshing()
         })
     }
 
-    private fun updateRecyclerViewAdapter(roomResults: List<RoomResult>) {
+    private fun updateRecyclerViewAdapter(results: List<RoomResult>) {
         val adapter = binding.recyclerView.adapter
-        if (adapter is MainRecyclerAdapter) {
-            adapter.updateDatSet(roomResults)
-        }
-    }
 
-    private fun isConnected(): Boolean {
-        return isNetworkAvailable(context!!)
+        (adapter as? MainRecyclerAdapter)?.updateDatSet(results)
     }
 
     private fun stopRefreshing() {
-        if (binding.swipeRefreshLayout.isRefreshing) {
-            binding.swipeRefreshLayout.isRefreshing = false
+        with(binding.swipeRefreshLayout) {
+            if (isRefreshing) {
+                isRefreshing = false
+            }
         }
     }
 }

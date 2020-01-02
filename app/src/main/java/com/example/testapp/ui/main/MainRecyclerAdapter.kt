@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.databinding.ListItemBinding
-import com.example.testapp.model.RoomResult
+import com.example.testapp.network.model.RoomResult
 
 class MainRecyclerAdapter :
     RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder>() {
@@ -31,7 +31,6 @@ class MainRecyclerAdapter :
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bind()
     }
-
 
     inner class MainViewHolder(private val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

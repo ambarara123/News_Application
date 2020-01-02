@@ -34,7 +34,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         }
 
         initViews()
-
     }
 
     private fun initViews() {
@@ -52,7 +51,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
             supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_white)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             navView.setNavigationItemSelectedListener(this@MainActivity)
-
         }
     }
 
@@ -83,7 +81,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         }
         return false
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
