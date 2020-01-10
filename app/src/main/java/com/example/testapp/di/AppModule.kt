@@ -1,10 +1,12 @@
 package com.example.testapp.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.testapp.NewsApplication
 import com.example.testapp.database.StoryDatabase
 import com.example.testapp.network.ApiService
 import com.example.testapp.utils.BASE_URL
+import com.example.testapp.utils.PREF_NAME
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -70,6 +72,12 @@ class AppModule {
     @Provides
     fun provideDatabase(context: Context): StoryDatabase {
         return StoryDatabase.getInstance(context)!!
+    }
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     }
 
 }

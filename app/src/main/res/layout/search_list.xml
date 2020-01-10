@@ -17,6 +17,7 @@
             android:id="@+id/abstractDocs"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:maxLines="3"
 
             />
         <TextView

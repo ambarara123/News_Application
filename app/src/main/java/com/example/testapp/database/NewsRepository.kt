@@ -1,5 +1,6 @@
 package com.example.testapp.database
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -14,15 +15,16 @@ import com.example.testapp.network.model.search.Doc
 import com.example.testapp.network.model.toRoomResult
 import com.example.testapp.utils.API_KEY
 import com.example.testapp.utils.API_KEY_BOOKS
-import com.example.testapp.utils.NetworkUtil
+import com.example.testapp.utils.IS_CONNECTED
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
     private val apiService: ApiService,
     private val database: StoryDatabase,
-    private val networkUtil: NetworkUtil
+    private val sharedPreferences: SharedPreferences
 ) {
 
     val storiesLiveData = MutableLiveData<List<RoomResult>>()
@@ -47,17 +49,19 @@ class NewsRepository @Inject constructor(
     }
 
     private fun isConnected(): Boolean {
-        return networkUtil.isNetworkAvailable()
+        return sharedPreferences.getBoolean(IS_CONNECTED, false)
     }
 
     suspend fun fetchStoryDataCoroutine() {
         withContext(Dispatchers.IO) {
             if (isConnected()) {
+                Timber.d("online mode")
                 val stories = fetchStoryDataFromNetworkCoroutine().results.map { it.toRoomResult() }
                 deleteAllStories()
                 saveStoryDataLocally(stories)
                 storiesLiveData.postValue(stories)
             } else {
+                Timber.d("offline mode")
                 storiesLiveData.postValue(fetchStoryDataFromRoom())
             }
         }

@@ -15,12 +15,12 @@ import javax.inject.Inject
 
 abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : DaggerFragment() {
 
-    lateinit var viewModel: VM
+    protected lateinit var viewModel: VM
 
-    lateinit var binding: B
+    protected lateinit var binding: B
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    protected lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater,

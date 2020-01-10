@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.example.testapp.network.ApiService
 import com.example.testapp.network.model.books.BookRoom
 import com.example.testapp.network.model.books.Response
+import com.example.testapp.utils.ActiveNetworkUtil
 import io.reactivex.Maybe
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -34,17 +35,19 @@ class BooksRepositoryTest {
 
     lateinit var booksRepository: NewsRepository
 
+    lateinit var networkUtil: ActiveNetworkUtil
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        booksRepository = NewsRepository(apiService, database)
+        booksRepository = NewsRepository(apiService, database, networkUtil)
 
         booksRepository.booksLiveData.observeForever(observer)
     }
 
     @After
     fun tearDown() {
-        booksRepository.onCleared()
+        //booksRepository.onCleared()
     }
 
     @Test
@@ -63,10 +66,14 @@ class BooksRepositoryTest {
             return@thenAnswer Maybe.just(ArgumentMatchers.anyList<Response>())
         }
 
+        Mockito.`when`(booksRepository.fetchBookDataFromRoom()).then {
+            it
+        }
+
         Mockito.`when`(booksRepository.fetchBookDataFromRoom())
             .thenReturn(ArgumentMatchers.anyList<BookRoom>())
 
-        booksRepository.fetchBookData(ArgumentMatchers.anyBoolean())
+        booksRepository.fetchBookData()
 
     }
 

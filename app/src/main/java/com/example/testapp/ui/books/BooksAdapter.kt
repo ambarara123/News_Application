@@ -38,18 +38,6 @@ class BooksAdapter : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
         diffResult.dispatchUpdatesTo(this)
     }
 
-    val diffUtilCallback = object : DiffUtil.ItemCallback<BookRoom>() {
-        override fun areItemsTheSame(oldItem: BookRoom, newItem: BookRoom): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: BookRoom, newItem: BookRoom): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-
-
     inner class ViewHolder(private val binding: BooksListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

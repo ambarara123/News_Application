@@ -57,7 +57,6 @@ class StoryDatabaseTest {
     fun getBookData() = runBlocking {
         val title = booksDao.getAllBooks()[0].title
         Assert.assertEquals("Fake Title", title)
-
     }
 
     @Test

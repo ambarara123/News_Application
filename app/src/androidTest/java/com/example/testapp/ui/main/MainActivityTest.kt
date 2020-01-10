@@ -1,7 +1,6 @@
 package com.example.testapp.ui.main
 
 import android.view.Gravity
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.action.ViewActions.*
@@ -14,10 +13,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.example.testapp.R
-import com.example.testapp.ui.search.SearchActivity
 import com.example.testapp.ui.search.SearchPagedAdapter
 import org.hamcrest.CoreMatchers.not
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,8 +24,6 @@ class MainActivityTest{
 
     @get:Rule
     val activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
-
-    //androidx.appcompat.R.id.search_src_text
 
     @Test
     fun checkSearchClick(){

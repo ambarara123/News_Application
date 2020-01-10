@@ -1,5 +1,6 @@
 package com.example.testapp
 
+import com.example.testapp.di.AppComponent
 import com.example.testapp.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
@@ -12,7 +13,7 @@ class NewsApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        (applicationInjector() as AppComponent).getActiveNetworkUtil().observeNetworkAvailability()
         Timber.plant(Timber.DebugTree())
     }
-
 }

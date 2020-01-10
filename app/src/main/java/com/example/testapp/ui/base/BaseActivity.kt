@@ -12,11 +12,11 @@ import javax.inject.Inject
 
 abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : DaggerAppCompatActivity() {
 
-    lateinit var viewModel: VM
-    lateinit var binding: B
+    protected lateinit var viewModel: VM
+    protected lateinit var binding: B
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    protected lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

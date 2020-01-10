@@ -14,6 +14,6 @@ class NewsDiffUtil(private val oldList: List<RoomResult>, private val newList: L
     override fun getNewListSize(): Int = newList.size
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+        return oldList[oldItemPosition].title == newList[newItemPosition].title
     }
 }

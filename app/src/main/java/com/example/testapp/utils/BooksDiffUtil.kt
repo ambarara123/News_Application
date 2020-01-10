@@ -14,6 +14,6 @@ class BooksDiffUtil(private val oldList: List<BookRoom>, private val newList: Li
     override fun getNewListSize(): Int = newList.size
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+        return oldList[oldItemPosition].title == newList[newItemPosition].title
     }
 }

@@ -10,3 +10,11 @@ const val STORY_URL = "topstories/v2/science.json"
 const val KEY_QUERY = "api-key"
 const val PAGE = "page"
 const val QUERY = "q"
+const val IS_CONNECTED = "is_connected"
+const val PREF_NAME = "main_pref"
+
+const val KEY_INDEX = "KEY_INDEX"
+const val KEY_TOP_PADDING = "KEY_TOP_PADDING"
+
+// Bundle Keys
+const val KEY_RECYCLER_POSITION = "KEY_RECYCLER_POSITION"

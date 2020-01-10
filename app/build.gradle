@@ -100,5 +100,6 @@ dependencies {
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC3'
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
-
+    //reactive network
+    implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.6'
 }

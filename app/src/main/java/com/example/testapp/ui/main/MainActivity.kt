@@ -58,12 +58,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         if (p0.itemId == R.id.actionNews) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.container, NewsFragment(), "news_fragment")
+                .replace(R.id.container, NewsFragment(), "news_fragment")
+                .addToBackStack(null)
                 .commit()
             return true
         } else if (p0.itemId == R.id.actionBooks) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, BooksFragment(), "books_fragment")
+                .addToBackStack(null)
                 .commit()
             return true
         }
