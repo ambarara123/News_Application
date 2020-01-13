@@ -19,9 +19,7 @@ class ViewModelFactory @Inject constructor(private val creators: Map<Class<out V
             }
         }
 
-        if (creator == null) {
-            throw IllegalArgumentException("unknown class ${modelClass.simpleName}")
-        }
+        requireNotNull(creator) { "unknown class ${modelClass.simpleName}" }
 
         try {
             @Suppress("UNCHECKED_CAST")

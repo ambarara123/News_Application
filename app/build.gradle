@@ -102,4 +102,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
     //reactive network
     implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.6'
+    //google pay wallet
+    implementation "com.google.android.gms:play-services-wallet:16.0.1"
+
 }

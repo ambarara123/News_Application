@@ -30,6 +30,9 @@ class NewsRepository @Inject constructor(
     val storiesLiveData = MutableLiveData<List<RoomResult>>()
     val booksLiveData = MutableLiveData<List<BookRoom>>()
 
+    private val searchQueryLiveData = MutableLiveData<String>()
+    private lateinit var sourceFactory: SearchDataSourceFactory
+
     private val pagedListConfig: PagedList.Config by lazy {
         val pageSize = 10
         PagedList.Config.Builder()
@@ -38,10 +41,6 @@ class NewsRepository @Inject constructor(
             .setEnablePlaceholders(false)
             .build()
     }
-
-    private val searchQueryLiveData = MutableLiveData<String>()
-
-    private lateinit var sourceFactory: SearchDataSourceFactory
 
     var searchLiveData: LiveData<PagedList<Doc>> = Transformations.switchMap(searchQueryLiveData) {
         sourceFactory = SearchDataSourceFactory(apiService, it ?: "")

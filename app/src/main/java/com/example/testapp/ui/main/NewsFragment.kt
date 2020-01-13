@@ -4,6 +4,7 @@ package com.example.testapp.ui.main
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,31 +29,18 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_news
 
-    companion object {
-        private var INSTANCE: NewsFragment? = null
-        fun getInstance(): NewsFragment {
-            if (INSTANCE == null)
-                INSTANCE = NewsFragment()
-            return INSTANCE!!
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecycler()
+        addListeners()
+        addObservers()
         viewModel.getDataCoroutine()
     }
 
-    override fun onDestroyView() {
-        Timber.d("On Destroy view")
+    override fun onPause() {
+        super.onPause()
         saveRecyclerPosition()
-        super.onDestroyView()
-    }
-
-    override fun onDetach() {
-        Timber.d("On Detach")
-        saveRecyclerPosition()
-        super.onDetach()
     }
 
     private fun saveRecyclerPosition() {
@@ -76,22 +64,23 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
         val index = sharedPreferences.getInt(KEY_INDEX, -1)
         val topPadding = sharedPreferences.getInt(KEY_TOP_PADDING, 0)
 
-        if (index != -1)
+        if (index != -1) {
             (binding.recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(
-                index,
+                (index - 1),
                 topPadding
             )
-
+            savePositionInSharedPreferences(-1, 0)
+        }
     }
 
     private fun savePositionInSharedPreferences(index: Int, topPadding: Int) {
-        sharedPreferences.edit().apply {
-            putInt(KEY_INDEX, index)
-            putInt(KEY_TOP_PADDING, topPadding)
-        }.apply()
+        sharedPreferences.edit()
+            .putInt(KEY_INDEX, index)
+            .putInt(KEY_TOP_PADDING, topPadding)
+            .apply()
     }
 
-    override fun initRecycler() {
+    private fun initRecycler() {
         with(binding.recyclerView) {
             layoutManager =
                 LinearLayoutManager(context)
@@ -99,13 +88,13 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
         }
     }
 
-    override fun addListeners() {
+    private fun addListeners() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.getDataCoroutine()
         }
     }
 
-    override fun addObservers() {
+    private fun addObservers() {
         viewModel.storiesLiveData.observe(viewLifecycleOwner, Observer {
             stopRefreshing()
             updateRecyclerViewAdapter(it)
@@ -116,8 +105,13 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
     private fun updateRecyclerViewAdapter(results: List<RoomResult>) {
         val adapter = binding.recyclerView.adapter
 
-        (adapter as? MainRecyclerAdapter)?.updateDatSet(results)
-        setRecyclerPosition()
+        val updatedPosition = (adapter as? MainRecyclerAdapter)?.updateDataSet(results).also {
+            setRecyclerPosition()
+        }
+        //MARK: new data loaded
+        if (updatedPosition != -1) {
+            Toast.makeText(context, "new data loaded", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun stopRefreshing() {

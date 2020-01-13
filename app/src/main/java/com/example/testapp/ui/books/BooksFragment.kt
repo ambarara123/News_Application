@@ -30,11 +30,14 @@ class BooksFragment : BaseFragment<FragmentBooksBinding, BooksViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initRecycler()
+        addListeners()
+        addObservers()
         viewModel.getData()
     }
 
-
-    override fun initRecycler() {
+    private fun initRecycler() {
         with(binding.bookRecyclerView) {
             layoutManager =
                 LinearLayoutManager(context)
@@ -43,13 +46,13 @@ class BooksFragment : BaseFragment<FragmentBooksBinding, BooksViewModel>() {
         }
     }
 
-    override fun addListeners() {
+    private fun addListeners() {
         binding.booksSwipeRefreshLayout.setOnRefreshListener {
             viewModel.getData()
         }
     }
 
-    override fun addObservers() {
+    private fun addObservers() {
         viewModel.booksLiveData.observe(viewLifecycleOwner, Observer {
             stopRefreshing()
             updateRecyclerViewAdapter(it)

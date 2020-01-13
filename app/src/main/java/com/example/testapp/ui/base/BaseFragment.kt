@@ -32,13 +32,6 @@ abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : DaggerFragmen
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initRecycler()
-        addListeners()
-        addObservers()
-    }
-
     private fun bindView() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(getViewModelClass())
         binding.setVariable(BR.viewModel, viewModel)
@@ -48,11 +41,5 @@ abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : DaggerFragmen
 
     @LayoutRes
     abstract fun getLayoutId(): Int
-
-    abstract fun initRecycler()
-
-    abstract fun addListeners()
-
-    abstract fun addObservers()
 
 }

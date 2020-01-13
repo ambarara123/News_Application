@@ -2,6 +2,7 @@ package com.example.testapp.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.testapp.ui.billing.BillingViewModel
 import com.example.testapp.ui.books.BooksViewModel
 import com.example.testapp.ui.main.MainViewModel
 import com.example.testapp.ui.search.SearchViewModel
@@ -30,5 +31,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SearchViewModel::class)
     abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BillingViewModel::class)
+    abstract fun bindBillingViewModel(billingViewModel: BillingViewModel): ViewModel
 
 }
