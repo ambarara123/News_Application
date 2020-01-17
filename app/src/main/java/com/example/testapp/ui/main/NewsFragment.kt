@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testapp.R
 import com.example.testapp.databinding.FragmentNewsBinding
@@ -69,7 +70,6 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
                 (index - 1),
                 topPadding
             )
-            savePositionInSharedPreferences(-1, 0)
         }
     }
 
@@ -84,6 +84,8 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
         with(binding.recyclerView) {
             layoutManager =
                 LinearLayoutManager(context)
+            itemAnimator = DefaultItemAnimator()
+            setHasFixedSize(true)
             adapter = MainRecyclerAdapter()
         }
     }

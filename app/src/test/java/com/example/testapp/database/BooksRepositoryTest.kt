@@ -1,11 +1,11 @@
 package com.example.testapp.database
 
+import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.testapp.network.ApiService
 import com.example.testapp.network.model.books.BookRoom
 import com.example.testapp.network.model.books.Response
-import com.example.testapp.utils.ActiveNetworkUtil
 import io.reactivex.Maybe
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -18,7 +18,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
 @RunWith(JUnit4::class)
@@ -33,27 +33,27 @@ class BooksRepositoryTest {
     @Mock
     lateinit var observer : Observer<List<BookRoom>>
 
-    lateinit var booksRepository: NewsRepository
+    @Mock
+    lateinit var sharedPreferences: SharedPreferences
 
-    lateinit var networkUtil: ActiveNetworkUtil
+    lateinit var booksRepository: NewsRepository
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        booksRepository = NewsRepository(apiService, database, networkUtil)
+        booksRepository = NewsRepository(apiService, database, sharedPreferences)
 
         booksRepository.booksLiveData.observeForever(observer)
     }
 
     @After
     fun tearDown() {
-        //booksRepository.onCleared()
     }
 
     @Test
     fun testNull() = runBlocking {
 
-        //booksRepository.booksLiveData.value = ArgumentMatchers.anyList<BookRoom>()
+        booksRepository.booksLiveData.value = ArgumentMatchers.anyList<BookRoom>()
 
         assertNotNull(booksRepository.booksLiveData)
 
@@ -62,15 +62,15 @@ class BooksRepositoryTest {
 
     @Test
     fun getBooksLiveData() = runBlocking {
-        Mockito.`when`(booksRepository.fetchBookDataFromNetwork()).thenAnswer {
+        `when`(booksRepository.fetchBookDataFromNetwork()).thenAnswer {
             return@thenAnswer Maybe.just(ArgumentMatchers.anyList<Response>())
         }
 
-        Mockito.`when`(booksRepository.fetchBookDataFromRoom()).then {
+        `when`(booksRepository.fetchBookDataFromRoom()).then {
             it
         }
 
-        Mockito.`when`(booksRepository.fetchBookDataFromRoom())
+        `when`(booksRepository.fetchBookDataFromRoom())
             .thenReturn(ArgumentMatchers.anyList<BookRoom>())
 
         booksRepository.fetchBookData()

@@ -42,7 +42,6 @@ class BooksFragment : BaseFragment<FragmentBooksBinding, BooksViewModel>() {
             layoutManager =
                 LinearLayoutManager(context)
             adapter = BooksAdapter()
-
         }
     }
 

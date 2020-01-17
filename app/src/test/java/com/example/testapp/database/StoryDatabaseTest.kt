@@ -25,10 +25,10 @@ class StoryDatabaseTest {
     fun setUp() = runBlocking {
 
         val context: Context = ApplicationProvider.getApplicationContext()
-            database = Room.inMemoryDatabaseBuilder(context, StoryDatabase::class.java).build()
-            storyDao = database.getStoryDao()
-            booksDao = database.getBooksDao()
-            insertFakeData()
+        database = Room.inMemoryDatabaseBuilder(context, StoryDatabase::class.java).build()
+        storyDao = database.getStoryDao()
+        booksDao = database.getBooksDao()
+        insertFakeData()
     }
 
     @After
@@ -44,13 +44,18 @@ class StoryDatabaseTest {
     private suspend fun insertFakeData() {
         val arrayList = ArrayList<BookRoom>()
         val roomResult =
-            BookRoom("ajdbsjkd", "Fakename", 100, "ISBN", 1, "Fake Title", "Fake Author")
+            BookRoom("ajdbsjkd", "FakeName", 100, "ISBN", 1, "Fake Title", "Fake Author")
         val roomResult2 =
-            BookRoom("ajdbsjkd", "Fakename2", 101, "ISBN2", 2, "Fake Title2", "Fake Author2")
+            BookRoom("ajdbsjkd", "FakeName2", 101, "ISBN2", 2, "Fake Title2", "Fake Author2")
         arrayList.add(roomResult)
         arrayList.add(roomResult2)
 
         booksDao.insertBooks(arrayList)
+    }
+
+    @Test
+    fun notNull() = runBlocking {
+
     }
 
     @Test

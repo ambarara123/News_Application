@@ -7,7 +7,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.billing.BillingFragment">
 
-        <include android:id="@+id/googlePayButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
