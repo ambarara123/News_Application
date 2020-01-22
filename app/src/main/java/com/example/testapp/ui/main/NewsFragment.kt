@@ -4,7 +4,6 @@ package com.example.testapp.ui.main
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -107,13 +106,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, MainViewModel>() {
     private fun updateRecyclerViewAdapter(results: List<RoomResult>) {
         val adapter = binding.recyclerView.adapter
 
-        val updatedPosition = (adapter as? MainRecyclerAdapter)?.updateDataSet(results).also {
+        (adapter as? MainRecyclerAdapter)?.updateDataSet(results).also {
             setRecyclerPosition()
         }
-        //MARK: new data loaded
-        if (updatedPosition != -1) {
-            Toast.makeText(context, "new data loaded", Toast.LENGTH_SHORT).show()
-        }
+
     }
 
     private fun stopRefreshing() {

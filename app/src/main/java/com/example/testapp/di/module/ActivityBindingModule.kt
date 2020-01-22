@@ -1,4 +1,4 @@
-package com.example.testapp.di
+package com.example.testapp.di.module
 
 import com.example.testapp.ui.main.MainActivity
 import com.example.testapp.ui.search.SearchActivity

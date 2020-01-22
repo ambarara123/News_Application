@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Setting">
+
+        <CheckBoxPreference
+            android:key="@string/key_mode"
+            android:title="dark mode"
+            android:summaryOff="light mode"
+            android:summaryOn="dark mode" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

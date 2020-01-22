@@ -1,4 +1,4 @@
-package com.example.testapp.di
+package com.example.testapp.di.module
 
 import android.content.Context
 import android.content.SharedPreferences

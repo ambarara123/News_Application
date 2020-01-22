@@ -1,4 +1,4 @@
-package com.example.testapp.di
+package com.example.testapp.di.module
 
 import com.example.testapp.ui.books.BooksFragment
 import com.example.testapp.ui.main.NewsFragment

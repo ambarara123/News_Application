@@ -1,7 +1,7 @@
 package com.example.testapp
 
-import com.example.testapp.di.AppComponent
-import com.example.testapp.di.DaggerAppComponent
+import com.example.testapp.di.component.AppComponent
+import com.example.testapp.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber

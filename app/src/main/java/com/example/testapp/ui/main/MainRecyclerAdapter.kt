@@ -25,18 +25,12 @@ class MainRecyclerAdapter :
 
     override fun getItemCount(): Int = newsList.size
 
-    fun updateDataSet(news: List<RoomResult>): Int {
-        return if (newsList.isEmpty()) {
-            notifyDataSetChanged()
-            -1
-        } else {
-            val diffCallback = NewsDiffUtil(newsList, news)
-            val diffResult = DiffUtil.calculateDiff(diffCallback)
-            newsList = news
+    fun updateDataSet(news: List<RoomResult>) {
+        val diffCallback = NewsDiffUtil(newsList, news)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        newsList = news
 
-            diffResult.dispatchUpdatesTo(this)
-            diffResult.convertOldPositionToNew(0)
-        }
+        diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {

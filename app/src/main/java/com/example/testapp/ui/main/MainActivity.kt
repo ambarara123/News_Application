@@ -11,13 +11,14 @@ import com.example.testapp.databinding.ActivityMainBinding
 import com.example.testapp.ui.base.BaseActivity
 import com.example.testapp.ui.books.BooksFragment
 import com.example.testapp.ui.search.SearchActivity
+import com.example.testapp.ui.setting.SettingFragment
 import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     NavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var toggle: ActionBarDrawerToggle
 
     override fun getViewModelClass(): Class<MainViewModel> = MainViewModel::class.java
 
@@ -74,8 +75,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (item.itemId == R.id.searchMenu) {
+        val itemId = item.itemId
+
+        if (itemId == R.id.searchMenu) {
             startActivity(Intent(this, SearchActivity::class.java))
+        } else if (itemId == R.id.action_setting) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, SettingFragment(), getString(R.string.settings))
+                .addToBackStack(null)
+                .commit()
         }
 
         if (toggle.onOptionsItemSelected(item)) {

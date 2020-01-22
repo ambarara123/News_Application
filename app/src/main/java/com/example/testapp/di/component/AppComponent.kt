@@ -1,6 +1,9 @@
-package com.example.testapp.di
+package com.example.testapp.di.component
 
 import com.example.testapp.NewsApplication
+import com.example.testapp.di.module.ActivityBindingModule
+import com.example.testapp.di.module.AppModule
+import com.example.testapp.di.module.ViewModelModule
 import com.example.testapp.utils.ActiveNetworkUtil
 import dagger.Component
 import dagger.android.AndroidInjectionModule
