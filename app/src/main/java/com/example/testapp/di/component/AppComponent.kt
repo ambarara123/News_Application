@@ -1,5 +1,6 @@
 package com.example.testapp.di.component
 
+import android.content.SharedPreferences
 import com.example.testapp.NewsApplication
 import com.example.testapp.di.module.ActivityBindingModule
 import com.example.testapp.di.module.AppModule
@@ -15,6 +16,8 @@ import javax.inject.Singleton
 interface AppComponent : AndroidInjector<NewsApplication> {
 
     fun getActiveNetworkUtil(): ActiveNetworkUtil
+
+    fun getSharedPreferences(): SharedPreferences
 
     @Component.Factory
     abstract class Factory : AndroidInjector.Factory<NewsApplication>

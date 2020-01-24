@@ -1,5 +1,6 @@
 package com.example.testapp
 
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.testapp.di.component.AppComponent
 import com.example.testapp.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
@@ -13,7 +14,16 @@ class NewsApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        (applicationInjector() as AppComponent).getActiveNetworkUtil().observeNetworkAvailability()
+        with((applicationInjector() as AppComponent)) {
+            getActiveNetworkUtil().observeNetworkAvailability()
+
+            getSharedPreferences().getBoolean(getString(R.string.key_mode), false).let {
+                if (it) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+
+        }
+
         Timber.plant(Timber.DebugTree())
     }
 }
