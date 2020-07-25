@@ -1,28 +1,26 @@
 package com.example.testapp
 
-import androidx.appcompat.app.AppCompatDelegate
+import android.app.Application
 import com.example.testapp.di.component.AppComponent
 import com.example.testapp.di.component.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-class NewsApplication : DaggerApplication() {
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.factory().create(this)
+@HiltAndroidApp
+open class NewsApplication : Application() {
+    // Instance of the AppComponent that will be used by all the Activities in the project
+    val appComponent: AppComponent by lazy {
+        initializeComponent()
+    }
+
+    open fun initializeComponent(): AppComponent {
+        // Creates an instance of AppComponent using its Factory constructor
+        // We pass the applicationContext that will be used as Context in the graph
+        return DaggerAppComponent.factory().create(applicationContext)
     }
 
     override fun onCreate() {
         super.onCreate()
-        with((applicationInjector() as AppComponent)) {
-            getActiveNetworkUtil().observeNetworkAvailability()
-
-            getSharedPreferences().getBoolean(getString(R.string.key_mode), false).let {
-                if (it) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-
-        }
 
         Timber.plant(Timber.DebugTree())
     }

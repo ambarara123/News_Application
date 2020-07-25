@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -105,5 +106,9 @@ dependencies {
     implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.6'
     //preferences
     implementation 'androidx.preference:preference:1.1.0'
+
+    //dagger-hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
 }
